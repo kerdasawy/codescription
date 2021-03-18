@@ -1,0 +1,27 @@
+<h1 id="tableLabel">Code List </h1>
+
+<p>This Code List OF system</p>
+
+<p *ngIf="!codeData"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="codeData">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name  </th>
+      <th>Desc </th>
+      <th>Color</th>
+      <th>Action</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of codeData">
+      <td>{{ data.id }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.desc }}</td>
+      <td>{{ data.color }}</td>
+      <td><a [routerLink]="['/codeTypesEntry',  data.id]" >Edit</a></td>
+    </tr>
+  </tbody>
+</table>

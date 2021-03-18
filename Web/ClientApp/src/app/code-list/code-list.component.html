@@ -1,0 +1,34 @@
+<h1 id="tableLabel">Code List </h1>
+
+<p>This Code List OF system</p>
+
+<p *ngIf="!codeData"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="codeData">
+
+  <colgroup>
+    <col span="1" style="width: 20%;">
+    <col span="1" style="width:auto;">
+    <col span="1" style="width:auto;">
+    <col span="1" style="width:auto;">
+    <col span="1" style="width:auto;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Type  </th>
+      <th>Moudel </th>
+      <th>Message</th>
+      <th>Desc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of codeData" [ngStyle]="{'background-color':data.color}">
+      <td>{{ data.code }}</td>
+      <td>{{ data.type }}</td>
+      <td>{{ data.moudel }}</td>
+      <td>{{ data.message }}</td>
+      <td>{{ data.desc }}</td>
+    </tr>
+  </tbody>
+</table>
