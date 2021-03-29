@@ -1,10 +1,10 @@
-<h1 id="tableLabel">Code List </h1>
+<h1 id="tableLabel">Module List </h1>
 
-<p>This Code List OF system</p>
+<p>This Module List OF system</p>
 
 <p *ngIf="!codeData"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="codeData">
+<table datatable class='table table-striped' aria-labelledby="tableLabel" *ngIf="codeData">
   <thead>
     <tr>
       <th>ID</th>
@@ -20,7 +20,7 @@
       <td>{{ data.name }}</td>
       <td>{{ data.desc }}</td>
       
-      <td><a [routerLink]="['/codeTypesEntry',  data.id]">Edit</a></td>
+      <td><a [routerLink]="['/codeModuleEntry',  data.id]">Edit</a></td>
     </tr>
   </tbody>
 </table>
