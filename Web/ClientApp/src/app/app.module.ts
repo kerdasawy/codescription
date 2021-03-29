@@ -42,9 +42,11 @@ import { CodeModuleListComponent } from './code-module-list/code-module-list.com
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'codeTypes', component: CodeTypeListComponent },
-      { path: 'codeTypesEntry/:id', component: CodeTypeEntryComponent },
+      { path: 'codeTypesEntry/:id', component: CodeTypeEntryComponent},
+       { path: 'codeTypesEntry', component: CodeTypeEntryComponent },
       { path: 'codeModule', component: CodeModuleListComponent },
       { path: 'codeModuleEntry/:id', component: CodeModuleEntryComponent },
+      { path: 'codeModuleEntry', component: CodeModuleEntryComponent },
     ])
   ],
   providers: [],

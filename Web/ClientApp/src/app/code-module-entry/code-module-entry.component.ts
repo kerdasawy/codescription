@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CodeModuleEntryComponent implements OnInit {
   public id: number = -1;
-  private codeItypeItem: any;
+  public codeItypeItem: any;
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.id = +this.route.snapshot.paramMap.get("id")
   }
@@ -20,6 +20,8 @@ export class CodeModuleEntryComponent implements OnInit {
       console.log(result);
       if (result.length > 0) {
         this.codeItypeItem = result[0];
+      } else {
+        this.codeItypeItem = { id: 0, name: "", desc: "" };
       }
 
     }, error => console.error(error));

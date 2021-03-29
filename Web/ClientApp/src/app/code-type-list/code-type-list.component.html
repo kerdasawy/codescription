@@ -1,9 +1,13 @@
-<h1 id="tableLabel">Code List </h1>
+<h1 id="tableLabel">Code Type List </h1>
 
-<p>This Code List OF system</p>
+<p>This Code Type List </p>
 
 <p *ngIf="!codeData"><em>Loading...</em></p>
-
+<br />
+<a [routerLink]="['/codeTypesEntry' ]" >Create new </a>
+<br />
+<br />
+<br />
 <table datatable class='table table-striped' aria-labelledby="tableLabel" *ngIf="codeData">
   <thead>
     <tr>
@@ -12,7 +16,7 @@
       <th>Desc </th>
       <th>Color</th>
       <th>Action</th>
-     
+
     </tr>
   </thead>
   <tbody>
@@ -21,7 +25,9 @@
       <td>{{ data.name }}</td>
       <td>{{ data.desc }}</td>
       <td>{{ data.color }}</td>
-      <td><a [routerLink]="['/codeTypesEntry',  data.id]" >Edit</a></td>
+      <td><a [routerLink]="['/codeTypesEntry',  data.id]">Edit</a></td>
     </tr>
   </tbody>
 </table>
+<br />
+<a [routerLink]="['/codeTypesEntry' ]" >Create new </a>

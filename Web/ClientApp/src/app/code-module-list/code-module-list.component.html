@@ -1,7 +1,9 @@
 <h1 id="tableLabel">Module List </h1>
 
 <p>This Module List OF system</p>
-
+<br/>
+<a [routerLink]="['/codeModuleEntry' ]">Create new </a>
+<br />
 <p *ngIf="!codeData"><em>Loading...</em></p>
 
 <table datatable class='table table-striped' aria-labelledby="tableLabel" *ngIf="codeData">
@@ -9,7 +11,7 @@
     <tr>
       <th>ID</th>
       <th>Name  </th>
-      <th>Desc </th> 
+      <th>Desc </th>
       <th>Action</th>
 
     </tr>
@@ -19,8 +21,10 @@
       <td>{{ data.id }}</td>
       <td>{{ data.name }}</td>
       <td>{{ data.desc }}</td>
-      
+
       <td><a [routerLink]="['/codeModuleEntry',  data.id]">Edit</a></td>
     </tr>
   </tbody>
 </table>
+<br />
+<a [routerLink]="['/codeModuleEntry' ]" >Create new </a>
