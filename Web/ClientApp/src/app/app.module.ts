@@ -13,6 +13,9 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CodeListComponent } from './code-list/code-list.component';
 import { CodeTypeListComponent } from './code-type-list/code-type-list.component';
 import { CodeTypeEntryComponent } from './code-type-entry/code-type-entry.component';
+import { CodeComponentEntryComponent } from './code-component-entry/code-component-entry.component';
+import { CodeModuleEntryComponent } from './code-module-entry/code-module-entry.component';
+import { CodeModuleListComponent } from './code-module-list/code-module-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { CodeTypeEntryComponent } from './code-type-entry/code-type-entry.compon
     FetchDataComponent,
     CodeListComponent,
     CodeTypeListComponent,
-    CodeTypeEntryComponent
+    CodeTypeEntryComponent,
+    CodeComponentEntryComponent,
+    CodeModuleEntryComponent,
+    CodeModuleListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,10 +38,13 @@ import { CodeTypeEntryComponent } from './code-type-entry/code-type-entry.compon
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: CodeListComponent, pathMatch: 'full' },
+      { path: 'codeEntry/:id', component: CodeComponentEntryComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'codeTypes', component: CodeTypeListComponent },
       { path: 'codeTypesEntry/:id', component: CodeTypeEntryComponent },
+      { path: 'codeModule', component: CodeModuleListComponent },
+      { path: 'codeModuleEntry/:id', component: CodeModuleEntryComponent },
     ])
   ],
   providers: [],

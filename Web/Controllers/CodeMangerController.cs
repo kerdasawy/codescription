@@ -18,11 +18,59 @@ namespace Web.Controllers
         {
             this.codeContext = codeContext;
         }
+
+        #region CodeItem Actions
         [HttpGet("List")]
         public ActionResult List()
         {
-            return Ok( codeContext.CodeDescriptions.ToList().Select(c=> new CodeItemDTO(c.Code, c.Type.Name, c.Module.Name, c.Message, c.Description, c.Type.Color)));
+            return Ok(codeContext.CodeDescriptions.ToList().Select(c => new CodeItemDTO(c.Code, c.Type.Name, c.Module.Name, c.Message, c.Description, c.Type.Color)));
         }
+        [HttpGet("CodeItem")]
+        public ActionResult CodeItem(int id)
+        {
+            return Ok(codeContext.CodeDescriptions
+                .Where(c => c.Id == id)
+                .ToList()
+                .Select(c => new CodeItemDTO(c.Code, c.Type.Name, c.Module.Name, c.Message, c.Description, c.Type.Color)
+                ));
+        }
+        [HttpGet("CodeItemDelete")]
+        public ActionResult CodeItemItemDelete(int id)
+        {
+            var item = codeContext.CodeDescriptions
+                .First(c => c.Id == id);
+            this.codeContext.CodeDescriptions.Remove(item);
+            return Ok();
+
+        }
+        [HttpPost("CodeItemEdit")]
+        public ActionResult CodeItemEntry(CodeItemEntryDTO CodeItemDTO)
+        {
+
+            CodeDescription editObj = null;
+            if (CodeItemDTO.Id > 0)
+            {
+                editObj = this.codeContext.CodeDescriptions.First(c => c.Id == CodeItemDTO.Id);
+                editObj.Code = CodeItemDTO.Code;
+                editObj.Message = CodeItemDTO.Message;
+                editObj.Description = CodeItemDTO.Desc;
+                editObj.CodeTypeId = CodeItemDTO.typeId;
+            }
+            else
+            {
+                editObj = new CodeDescription();
+                editObj.Code = CodeItemDTO.Code;
+                editObj.Message = CodeItemDTO.Message;
+                editObj.Description = CodeItemDTO.Desc;
+                editObj.CodeTypeId = CodeItemDTO.typeId; 
+
+                this.codeContext.CodeDescriptions.Add(editObj); 
+            }
+            this.codeContext.SaveChanges();
+            return Ok(editObj?.Id ?? -1);
+        }
+        #endregion
+
 
         #region CodeType Actions
         [HttpGet("CodeTypeList")]
@@ -74,7 +122,61 @@ namespace Web.Controllers
             }
             this.codeContext.SaveChanges();
             return Ok(editObj?.Id ?? -1);
-        } 
+        }
+        #endregion
+
+
+        #region Module Actions
+        [HttpGet("ModuleList")]
+        public ActionResult CodeModuleList()
+        {
+            return Ok(codeContext.Modules.ToList().Select(c => new { id = c.Id, name = c.Name, desc = c.Description }));
+        }
+        [HttpGet("ModuleItem")]
+        public ActionResult CodeModuleItem(int id)
+        {
+            return Ok(codeContext.Modules
+                .Where(c => c.Id == id)
+                .ToList()
+                .Select(c => new { id = c.Id, name = c.Name, desc = c.Description }
+                ));
+        }
+        [HttpGet("ModuleItemDelete")]
+        public ActionResult CodeModuleItemDelete(int id)
+        {
+            var item = codeContext.Modules
+                .First(c => c.Id == id);
+            this.codeContext.Modules.Remove(item);
+            return Ok();
+
+        }
+        [HttpPost("ModuleEdit")]
+        public ActionResult CodeMoudleSave(ModuleDTO ModuleDTO)
+        {
+
+            Module editObj = null;
+            if (ModuleDTO.ID > 0)
+            {
+                editObj = this.codeContext.Modules.First(c => c.Id == ModuleDTO.ID);
+                editObj.Name = ModuleDTO.Name;
+                editObj.Description = ModuleDTO.Desc;
+
+
+
+            }
+            else
+            {
+                editObj = new Module();
+                editObj.Name = ModuleDTO.Name;
+                editObj.Description = ModuleDTO.Desc;
+
+                this.codeContext.Modules.Add(editObj);
+
+
+            }
+            this.codeContext.SaveChanges();
+            return Ok(editObj?.Id ?? -1);
+        }
         #endregion
 
     }
@@ -89,8 +191,20 @@ namespace Web.Controllers
 
     }
 
+    public class CodeItemEntryDTO
+    {
+        public int Id { get; set; } = 0;
+        public string Code { get; set; }
+        public string Message { get; set; }
+        public string Desc { get; set; }
+        public int typeId { get; set; }
+        public int moduleId { get; set; }  
+           
+    }  
+    
     public class CodeItemDTO
     {
+        public int Id { get; set; } = 0;
         public string Code { get; }
         public string Type { get; }
         public string Moudel { get; }
@@ -100,6 +214,16 @@ namespace Web.Controllers
 
         public CodeItemDTO(string code, string type, string moudel, string message, string desc, string color)
         {
+            Code = code;
+            Type = type;
+            Moudel = moudel;
+            Message = message;
+            Desc = desc;
+            Color = color;
+        }
+           public CodeItemDTO(int id, string code, string type, string moudel, string message, string desc, string color)
+        {
+            this.Id = id;
             Code = code;
             Type = type;
             Moudel = moudel;
