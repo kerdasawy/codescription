@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-code-type-entry',
   templateUrl: './code-type-entry.component.html',
@@ -11,7 +11,7 @@ export class CodeTypeEntryComponent implements OnInit {
 
   public id: number = -1;
   private codeItypeItem: any;
-  constructor(private route: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.id = +this.route.snapshot.paramMap.get("id")
   }
 
@@ -37,6 +37,8 @@ export class CodeTypeEntryComponent implements OnInit {
       ).subscribe(s => {
 
       });
+    alert("Saved!");
+    this.router.navigate(['codeTypes']);
   }
 
 }

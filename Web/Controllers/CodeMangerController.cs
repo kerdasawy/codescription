@@ -21,19 +21,20 @@ namespace Web.Controllers
         [HttpGet("List")]
         public ActionResult List()
         {
-            return Ok( codeContext.CodeDescriptions.ToList().Select(c=>new { Code=c.Code , Type=c.Type.Name , Moudel= c.Module.Name , Message=c.Message , Desc=c.Description,Color = c.Type.Color}));
+            return Ok( codeContext.CodeDescriptions.ToList().Select(c=> new CodeItemDTO(c.Code, c.Type.Name, c.Module.Name, c.Message, c.Description, c.Type.Color)));
         }
 
+        #region CodeType Actions
         [HttpGet("CodeTypeList")]
         public ActionResult CodeTypeList()
         {
-            return Ok(codeContext.CodeTypes.ToList().Select(c => new { id = c.Id, name = c.Name, desc= c.Description, color = c.Color }));
+            return Ok(codeContext.CodeTypes.ToList().Select(c => new { id = c.Id, name = c.Name, desc = c.Description, color = c.Color }));
         }
         [HttpGet("CodeTypeItem")]
         public ActionResult CodeTypeItem(int id)
         {
             return Ok(codeContext.CodeTypes
-                .Where(c=>c.Id==id)
+                .Where(c => c.Id == id)
                 .ToList()
                 .Select(c => new { id = c.Id, name = c.Name, desc = c.Description, color = c.Color }
                 ));
@@ -41,29 +42,29 @@ namespace Web.Controllers
         [HttpGet("CodeTypeItemDelete")]
         public ActionResult CodeTypeItemDelete(int id)
         {
-            var item =codeContext.CodeTypes
+            var item = codeContext.CodeTypes
                 .First(c => c.Id == id);
             this.codeContext.CodeTypes.Remove(item);
             return Ok();
-                 
+
         }
         [HttpPost("CodeTypeEdit")]
         public ActionResult CodeTypeList(CodeTypeDTO codeTypeDTO)
         {
 
             CodeType editObj = null;
-            if (codeTypeDTO.ID>0)
+            if (codeTypeDTO.ID > 0)
             {
-                  editObj =  this.codeContext.CodeTypes.First(c => c.Id == codeTypeDTO.ID);
+                editObj = this.codeContext.CodeTypes.First(c => c.Id == codeTypeDTO.ID);
                 editObj.Name = codeTypeDTO.Name;
                 editObj.Description = codeTypeDTO.Desc;
                 editObj.Color = codeTypeDTO.Color;
-                
+
 
             }
             else
             {
-                  editObj = new CodeType();
+                editObj = new CodeType();
                 editObj.Name = codeTypeDTO.Name;
                 editObj.Description = codeTypeDTO.Desc;
                 editObj.Color = codeTypeDTO.Color;
@@ -73,8 +74,9 @@ namespace Web.Controllers
             }
             this.codeContext.SaveChanges();
             return Ok(editObj?.Id ?? -1);
-        }
-        
+        } 
+        #endregion
+
     }
     public class CodeTypeDTO
     {
@@ -87,4 +89,39 @@ namespace Web.Controllers
 
     }
 
+    public class CodeItemDTO
+    {
+        public string Code { get; }
+        public string Type { get; }
+        public string Moudel { get; }
+        public string Message { get; }
+        public string Desc { get; }
+        public string Color { get; }
+
+        public CodeItemDTO(string code, string type, string moudel, string message, string desc, string color)
+        {
+            Code = code;
+            Type = type;
+            Moudel = moudel;
+            Message = message;
+            Desc = desc;
+            Color = color;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is CodeItemDTO other &&
+                   Code == other.Code &&
+                   Type == other.Type &&
+                   Moudel == other.Moudel &&
+                   Message == other.Message &&
+                   Desc == other.Desc &&
+                   Color == other.Color;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Code, Type, Moudel, Message, Desc, Color);
+        }
+    }
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { DataTablesModule } from "angular-datatables";
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -27,6 +28,7 @@ import { CodeTypeEntryComponent } from './code-type-entry/code-type-entry.compon
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    DataTablesModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: CodeListComponent, pathMatch: 'full' },
