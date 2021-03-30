@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Web
+namespace web
 {
     public class Startup
     {
@@ -27,19 +27,14 @@ namespace Web
                 options.SerializerSettings.MaxDepth = 1;
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             }
-            );  
+            );
+
             services.AddDbContext<CodeContext>(options =>
             {
 
-                options.UseSqlServer(Configuration.GetSection("DefualtConnection").Value, b => b.MigrationsAssembly("Web"));
+                options.UseSqlServer(Configuration.GetSection("DefualtConnection").Value, b => b.MigrationsAssembly("web"));
             });
-            ;
-
-
-
             // In production, the Angular files will be served from this directory
-
-
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";

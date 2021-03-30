@@ -1,6 +1,8 @@
-<h1>Code type Entry</h1>
+ 
+<h1 *ngIf="codeItypeItem,id>0">Edit Code type </h1>
+<h1 *ngIf="codeItypeItem.id<=0">New  Code type </h1>
 <p *ngIf="!codeItypeItem"><em>Loading...</em></p>
-<form  *ngIf="codeItypeItem">
+<form *ngIf="codeItypeItem">
   <div class="form-group">
     <label for="CodeTypeID">ID</label>
     <input type="number" name="codeID" class="form-control" id="CodeTypeID" aria-describedby="IDHelp" [ngModel]="codeItypeItem.id" placeholder="ID" readonly>
@@ -8,19 +10,19 @@
   </div>
   <div class="form-group">
     <label for="CodeTypeName">Name</label>
-    <input type="text" name="codeName"  class="form-control" [(ngModel)]="codeItypeItem.name" id="CodeTypeName" placeholder="Name">
+    <input type="text" name="codeName" class="form-control" [(ngModel)]="codeItypeItem.name" id="CodeTypeName" placeholder="Name">
     <small id="NameHelp" class="form-text text-muted">The name code type</small>
   </div>
   <div class="form-group">
     <label for="CodeTypeDesc">Desc</label>
-    <input type="text" name="codeDesc"  class="form-control" [(ngModel)]="codeItypeItem.desc"  id="CodeTypeDesc" placeholder="Desc">
+    <input type="text" name="codeDesc" class="form-control" [(ngModel)]="codeItypeItem.desc" id="CodeTypeDesc" placeholder="Desc">
     <small id="NameHelp" class="form-text text-muted">The description of code type</small>
   </div>
   <div class="form-group">
     <label for="CodeTypeDesc">Color</label>
-    <input type="color" name="codeColor"  class="form-control" [(ngModel)]="codeItypeItem.color"  id="CodeTypeDesc" placeholder="Desc">
+    <input type="color" name="codeColor" class="form-control" [(ngModel)]="codeItypeItem.color" id="CodeTypeDesc" placeholder="Desc">
     <small id="NameHelp" class="form-text text-muted">The Color of code type</small>
   </div>
 
-  <button type="submit" (click)="save()"  class="btn btn-primary">Save</button>
+  <button type="submit" (click)="save()" class="btn btn-primary">Save</button>
 </form>

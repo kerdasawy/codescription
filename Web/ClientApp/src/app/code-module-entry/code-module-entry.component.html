@@ -1,4 +1,5 @@
-<h1>Module Entry</h1>
+<h1 *ngIf="codeItypeItem,id>0">Edit Module </h1>
+<h1 *ngIf="codeItypeItem.id<=0">New  Module </h1>
 <p *ngIf="!codeItypeItem"><em>Loading...</em></p>
 <form *ngIf="codeItypeItem">
   <div class="form-group">
