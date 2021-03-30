@@ -30,7 +30,7 @@
         <label class="input-group-text" for="CodeTypeSelectList">Type</label>
       </div>
       <select name="CodeItemType"  required class="custom-select" aria-label=".form-select-lg " id="CodeTypeSelectList" [(ngModel)]="codeItem.typeId">
-        <option *ngFor="let c of codeTypesList" [ngValue]="c.id">{{c.name}}</option>
+        <option *ngFor="let c of codeTypesList" [ngValue]="c.id" [selected]="c.id==codeItem.typeId">{{c.name}}</option>
       </select>
      
     </div>
@@ -41,8 +41,8 @@
       <div class="input-group-prepend">
         <label class="input-group-text" for="ModuleSelectList">Module</label>
       </div>
-      <select required name="CodeItemType" class="custom-select" aria-label=".form-select-lg " id="ModuleSelectList" [(ngModel)]="codeItem.moduleId">
-        <option *ngFor="let c of moudlesList" [ngValue]="c.id">{{c.name}}</option>
+      <select required name="CodeModule" class="custom-select" aria-label=".form-select-lg " id="ModuleSelectList" [(ngModel)]="codeItem.moduleId">
+        <option *ngFor="let c of moudlesList" [ngValue]="c.id" [selected]="c.id==codeItem.moduleId" >{{c.name}}</option>
       </select>
 
     </div>
