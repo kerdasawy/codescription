@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CodeListComponent   {
   public codeData: CodeData[];
+  public dtOptions: DataTables.Settings = {};
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
 
     http.get<CodeData[]>(baseUrl + 'CodeManger/List').subscribe(result => {
@@ -16,6 +17,10 @@ export class CodeListComponent   {
       this.codeData = result;
       console.debug("data:" + this.codeData.length);
     }, error => console.error(error));
+
+    this.dtOptions = {
+      pagingType: 'full_numbers', pageLength: 50
+    };
   }
 
    

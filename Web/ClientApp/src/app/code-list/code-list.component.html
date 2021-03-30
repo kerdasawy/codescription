@@ -3,8 +3,12 @@
 <p>This Code List OF system</p>
 
 <p *ngIf="!codeData"><em>Loading...</em></p>
-
-<table datatable  class='table table-striped' aria-labelledby="tableLabel" *ngIf="codeData">
+<br />
+<a [routerLink]="['/codeEntry' ]">Create new </a>
+<br />
+<br />
+<br />
+<table datatable [dtOptions]="dtOptions" class='table table-striped' aria-labelledby="tableLabel" *ngIf="codeData">
 
   <colgroup>
     <col span="1" style="width: 20%;">
@@ -17,9 +21,10 @@
     <tr>
       <th>Code</th>
       <th>Type  </th>
-      <th>Moudel </th>
+      <th>Module </th>
       <th>Message</th>
       <th>Desc</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +34,17 @@
       <td>{{ data.moudel }}</td>
       <td>{{ data.message }}</td>
       <td>{{ data.desc }}</td>
+      <td>
+        <a [routerLink]="['/codeEntry',  data.id]">
+          Edit
+        </a><span>|</span><a data-id="moudle-item-delete-link-{{data.id}}"
+                             [attr.data-dbid]="data.id"
+                             (click)="delete(data.id)">Delete</a>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<br />
+<a [routerLink]="['/codeEntry' ]">Create new </a>
+

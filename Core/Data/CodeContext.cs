@@ -49,9 +49,9 @@ namespace core
             modelBuilder.Entity<CodeDescription>().Navigation<Module>(c => c.Module).AutoInclude();
             var codeTypes = new List<CodeType>()
             {
-                 new CodeType(){Id=1, Color="red", Name="Error" , Description = "Error in operation or user input invalid."},
-                 new CodeType(){Id=2, Color="yellow", Name="Warning" , Description = "Warning in operation or user input has issue."},
-                 new CodeType(){Id=3, Color="gray", Name="Status" , Description = "Operation Status and info."},
+                 new CodeType(){Id=1, Color="#fb6fed", Name="Error" , Description = "Error in operation or user input invalid."},
+                 new CodeType(){Id=2, Color="#f9fba2", Name="Warning" , Description = "Warning in operation or user input has issue."},
+                 new CodeType(){Id=3, Color="#c4c4c4", Name="Status" , Description = "Operation Status and info."},
 
             };
             modelBuilder.Entity<CodeType>().HasData(codeTypes);

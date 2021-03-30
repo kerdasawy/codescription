@@ -1,1 +1,52 @@
-<p>code-component-entry works!</p>
+<h1 *ngIf="codeItem&&codeItem.id>0">Edit Code item </h1>
+<h1 *ngIf="codeItem&&codeItem.id<=0">New  Code Item </h1>
+
+
+<p *ngIf="!codeItem"><em>Loading...</em></p>
+<form *ngIf="codeItem">
+  <div class="form-group">
+    <label for="CodeTypeID">ID</label>
+    <input type="number" name="codeID" class="form-control" id="CodeTypeID" aria-describedby="IDHelp" [ngModel]="codeItem.id" placeholder="ID" readonly>
+    <small id="IDHelp" class="form-text text-muted">The id of code type</small>
+  </div>
+  <div class="form-group">
+    <label for="codeItemCode">Code</label>
+    <input type="text" name="codeItemCode" class="form-control" [(ngModel)]="codeItem.code" id="CodeTypeName" placeholder="Code">
+    <small id="NameHelp" class="form-text text-muted">Code Message</small>
+  </div>
+  <div class="form-group">
+    <label for="codeMessage">Message</label>
+    <input type="text" required name="codeMessage" class="form-control" [(ngModel)]="codeItem.message" id="CodeTypeName" placeholder="Message">
+    <small id="NameHelp" class="form-text text-muted">Code Message</small>
+  </div>
+  <div class="form-group">
+    <label for="codeDesc">Desc</label>
+    <input type="text" required name="codeDesc" class="form-control" [(ngModel)]="codeItem.desc" id="CodeTypeDesc" placeholder="Desc">
+    <small id="NameHelp" class="form-text text-muted">The description of code  </small>
+  </div>
+  <div class="form-group">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="CodeTypeSelectList">Type</label>
+      </div>
+      <select name="CodeItemType"  required class="custom-select" aria-label=".form-select-lg " id="CodeTypeSelectList" [(ngModel)]="codeItem.typeId">
+        <option *ngFor="let c of codeTypesList" [ngValue]="c.id">{{c.name}}</option>
+      </select>
+     
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="ModuleSelectList">Module</label>
+      </div>
+      <select required name="CodeItemType" class="custom-select" aria-label=".form-select-lg " id="ModuleSelectList" [(ngModel)]="codeItem.moduleId">
+        <option *ngFor="let c of moudlesList" [ngValue]="c.id">{{c.name}}</option>
+      </select>
+
+    </div>
+  
+  </div>
+  <button type="submit" (click)="save()" class="btn btn-primary">Save</button>
+</form>

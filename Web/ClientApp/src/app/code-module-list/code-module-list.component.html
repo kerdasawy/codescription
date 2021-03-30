@@ -1,8 +1,8 @@
 <h1 id="tableLabel">Module List </h1>
 
 <p>This Module List OF system</p>
-<br/>
-<br/>
+<br />
+<br />
 <a [routerLink]="['/codeModuleEntry' ]">Create new </a>
 <br />
 <br />
@@ -25,9 +25,11 @@
       <td>{{ data.name }}</td>
       <td>{{ data.desc }}</td>
 
-      <td><a [routerLink]="['/codeModuleEntry',  data.id]">Edit</a></td>
+      <td><a [routerLink]="['/codeModuleEntry',  data.id]">Edit</a><span>|</span><a data-id="moudle-item-delete-link-{{data.id}}"
+                                                                                    [attr.data-dbid]="data.id"
+                                                                                   (click)="delete(data.id)">Delete</a></td>
     </tr>
   </tbody>
 </table>
 <br />
-<a [routerLink]="['/codeModuleEntry' ]" >Create new </a>
+<a [routerLink]="['/codeModuleEntry' ]">Create new </a>

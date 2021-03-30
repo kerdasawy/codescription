@@ -38,6 +38,7 @@ import { CodeModuleListComponent } from './code-module-list/code-module-list.com
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: CodeListComponent, pathMatch: 'full' },
+      { path: 'codeEntry', component: CodeComponentEntryComponent },
       { path: 'codeEntry/:id', component: CodeComponentEntryComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },

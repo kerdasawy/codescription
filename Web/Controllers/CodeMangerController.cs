@@ -23,7 +23,7 @@ namespace Web.Controllers
         [HttpGet("List")]
         public ActionResult List()
         {
-            return Ok(codeContext.CodeDescriptions.ToList().Select(c => new CodeItemDTO(c.Code, c.Type.Name, c.Module.Name, c.Message, c.Description, c.Type.Color)));
+            return Ok(codeContext.CodeDescriptions.ToList().Select(c => new CodeItemDTO(c.Code, c.Type.Name, c.Module.Name, c.Message, c.Description, c.Type.Color) {  Id= c.Id} ));
         }
         [HttpGet("CodeItem")]
         public ActionResult CodeItem(int id)
@@ -31,7 +31,7 @@ namespace Web.Controllers
             return Ok(codeContext.CodeDescriptions
                 .Where(c => c.Id == id)
                 .ToList()
-                .Select(c => new CodeItemDTO(c.Code, c.Type.Name, c.Module.Name, c.Message, c.Description, c.Type.Color)
+                .Select(c => new CodeItemEntryDTO() {   Id = c.Id , Code = c.Code , Desc = c.Description , Message = c.Message , moduleId = c.ModuleId , typeId = c.CodeTypeId }
                 ));
         }
         [HttpGet("CodeItemDelete")]
@@ -51,21 +51,18 @@ namespace Web.Controllers
             if (CodeItemDTO.Id > 0)
             {
                 editObj = this.codeContext.CodeDescriptions.First(c => c.Id == CodeItemDTO.Id);
-                editObj.Code = CodeItemDTO.Code;
-                editObj.Message = CodeItemDTO.Message;
-                editObj.Description = CodeItemDTO.Desc;
-                editObj.CodeTypeId = CodeItemDTO.typeId;
             }
             else
             {
-                editObj = new CodeDescription();
-                editObj.Code = CodeItemDTO.Code;
-                editObj.Message = CodeItemDTO.Message;
-                editObj.Description = CodeItemDTO.Desc;
-                editObj.CodeTypeId = CodeItemDTO.typeId; 
-
+                editObj = new CodeDescription(); 
                 this.codeContext.CodeDescriptions.Add(editObj); 
             }
+
+            editObj.Code = CodeItemDTO.Code;
+            editObj.Message = CodeItemDTO.Message;
+            editObj.Description = CodeItemDTO.Desc;
+            editObj.CodeTypeId = CodeItemDTO.typeId;
+            editObj.ModuleId = CodeItemDTO.moduleId;
             this.codeContext.SaveChanges();
             return Ok(editObj?.Id ?? -1);
         }
@@ -92,8 +89,17 @@ namespace Web.Controllers
         {
             var item = codeContext.CodeTypes
                 .First(c => c.Id == id);
-            this.codeContext.CodeTypes.Remove(item);
-            return Ok();
+            var count = codeContext.CodeDescriptions.Where(c => c.CodeTypeId == id).Count();
+            if (count == 0)
+            {
+                this.codeContext.CodeTypes.Remove(item); 
+                this.codeContext.SaveChanges();
+                return Ok("");
+            }
+            else
+            {
+                return BadRequest("Delete Code types  Items Frist");
+            }
 
         }
         [HttpPost("CodeTypeEdit")]
@@ -146,8 +152,16 @@ namespace Web.Controllers
         {
             var item = codeContext.Modules
                 .First(c => c.Id == id);
-            this.codeContext.Modules.Remove(item);
-            return Ok();
+            var count = codeContext.CodeDescriptions.Where(c => c.ModuleId == id).Count();
+            if (count == 0)
+            { this.codeContext.Modules.Remove(item); this.codeContext.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Delete module Item Frist");
+            }
+            
 
         }
         [HttpPost("ModuleEdit")]

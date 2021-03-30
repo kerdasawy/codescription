@@ -34,14 +34,14 @@ export class CodeTypeEntryComponent implements OnInit {
   }
 
   public save() {
-    this.http.post<any>(this.baseUrl + 'CodeManger/CodeTypeEdit',  this.codeItypeItem   )
+    this.http.post<any>(this.baseUrl + 'CodeManger/CodeTypeEdit', this.codeItypeItem   )
       .pipe(
 
       ).subscribe(s => {
 
       });
     alert("Saved!");
-    this.router.navigate(['codeTypes']);
+    this.router.navigate(['/codeTypes']);
   }
 
 }
